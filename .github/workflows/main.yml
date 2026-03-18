@@ -1,0 +1,28 @@
+name: Run Discord Bot
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 * * * *' # كل ساعة (اختياري للحفاظ على النشاط)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # أو أي نسخة حديثة
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Bot
+        run: node index.js
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
